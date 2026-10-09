@@ -17,8 +17,10 @@ export default defineConfig([
       globals: globals.browser,
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
-    'react/jsx-uses-vars': 'error',
-     'no-unused-vars': 'warn',
-     'no-undef': 'error',
+    rules: {
+      'no-unused-vars': 'warn', // unused variable -> warning
+      'no-undef': 'error',      // undefined variable -> error
+    },
   },
+
 ])
