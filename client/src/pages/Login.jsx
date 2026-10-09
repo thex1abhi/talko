@@ -2,9 +2,16 @@ import React from "react";
 import { HiOutlineMicrophone, HiOutlineSparkles } from "react-icons/hi";
 import { HiOutlineBolt, HiOutlineCodeBracket } from "react-icons/hi2";
 import { FcGoogle } from "react-icons/fc";
+import logo from "../assets/talko.png"
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../utils/firebase";
+import axios from "axios"
+import { ServerUrl } from "../App";
+import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from 'react-hot-toast';
+function Login({ setUser }) {
 
-function Login() {
-
+    const navigate = useNavigate()
 
     const features = [
         {
@@ -30,10 +37,29 @@ function Login() {
 
     ]
 
+    const handleLogin = async () => {
+        try {
+            const result = await signInWithPopup(auth, provider)
+            const { displayName, email } = result.user
+            const res = await axios.post(ServerUrl + "/api/auth/google", {
+                name: displayName,
+                email,
+            }, { withCredentials: true })
+            setUser(res.data);
+            console.log(res.data);
+            toast.success("Login Success ")
+            navigate("/");
+
+        } catch (error) {
+            toast.error("Login failed ")
+            console.log(error);
+
+        }
+    }
 
     return (
         <div className="min-h-screen  bg-linear-to-br  from-purple-50 via-white to-emerald-50 overflow-hidden ">
-            <div className="max-w-7xl  mx-auto px-6 py-16 lg:py-24 ">
+            <div className="max-w-6xl  mx-auto px-6 py-8 lg:py-12 ">
                 <div className="grid lg:grid-cols-2  gap-16 items-center">
 
                     <div className="">
@@ -45,7 +71,7 @@ function Login() {
                             AI voice Assistant platform
 
                         </div>
-                        <h1 className="mt-8 text-5xl lg:text-7xl font-black leading-tight
+                        <h1 className="mt-8 text-4xl lg:text-6xl font-black leading-tight
                      text-[#081028]   ">
                             Build AI Assistants
                             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-emerald-500   ">For any website </span>
@@ -55,7 +81,9 @@ function Login() {
                             Create customizable AI voice assistants that talk , guide users , and integrate  into any website instantly.
 
                         </p>
-                        <button className="mt-10 h-15 px-8 rounded-2xl  bg-gradient-to-r from-purple-500 to-emerald-500  text-white text-lg font-semibold flex items-center gap-4 shadow_[0_20px_80px_rgba(139,92,246,0.25)] hover:scale-[1.02] transition cursor-pointer  ">
+                        <button
+                            onClick={handleLogin}
+                            className="mt-10 h-15 px-8 rounded-2xl  bg-gradient-to-r from-purple-500 to-emerald-500  text-white text-lg font-semibold flex items-center gap-4 shadow_[0_20px_80px_rgba(139,92,246,0.25)] hover:scale-[1.02] transition cursor-pointer  ">
                             <FcGoogle />
                             Continue with Google
                         </button>
@@ -67,18 +95,37 @@ function Login() {
                     </div>
 
                     {/* right  */}
-                    <div className="relative ">
-                        <div className="absolute inset-0  bg-gradient-to-r from-purple-200/50  to-emerald-200/40   blur-[120px] ">
-                            <div className="relative rounded-[40px]  border border-black/5  bg-white  shadow-[0_20px_80px_rgba(0,0,0,0.06)] p-8 overflow-hidden  ">
-                                <div className="flex items-center  justify-between">
-                                    <div className="">
-                                        <h2 className="mt-2 text-3xl font-bold text-[#081028] ">Features </h2>
-                                    </div>
-                                    <div className="q-16 h-16 rounded-3xl bg-gradient-to-r  from-purple-500 to-emerald-500  flex items-center  justify-center shadow-[0_10px_40px_rgba(139,92,246,0.25)] ">
-                        
-                                    </div>
+                    <div className="relative">
+                        <div
+                            aria-hidden="true"
+                            className="absolute inset-8 rounded-full bg-gradient-to-r from-purple-200/50 to-emerald-200/40 blur-[120px]"
+                        />
+                        <div className="relative rounded-[40px] border border-black/5 bg-white p-8 shadow-[0_20px_80px_rgba(0,0,0,0.06)]">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <h2 className="text-2xl font-bold text-[#081028]">Features</h2>
+                                </div>
+                                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-3xl bg-gradient-to-r from-purple-500 to-emerald-500 shadow-[0_10px_40px_rgba(139,92,246,0.25)]">
+                                    <img src={logo} alt="Talko" className="h-10 w-10 object-cover" />
                                 </div>
                             </div>
+
+                            <div className="mt-10 space-y-3  ">
+                                {features.map(({ icon, title, desc }, index) => (
+                                    <div key={index}
+                                        className="flex gap-2 rounded-3xl border border-black/0.5 bg-[#f8fafc] p-5  ">
+                                        <div className="min-w-[40px] h-[40px]  rounded-2xl  bg-gradient-to-r  from-purple-500 to-emerald-500  text-white text-2xl  flex items-center justify-center shadow_[0_10px_30px_rgba(139,92,246,0.20)]   ">
+                                            {icon}
+                                        </div>
+
+                                        <div className="">
+                                            <h3 className="text-[#081028]  text-lg  font-medium  ">{title} </h3>
+                                            <p className="mt-1 text-sm leading-7 text-[#64748b] "> {desc} </p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
                         </div>
                     </div>
                 </div>
