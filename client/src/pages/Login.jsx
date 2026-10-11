@@ -97,7 +97,6 @@ function Login({ setUser }) {
                     {/* right  */}
                     <div className="relative">
                         <div
-                            aria-hidden="true"
                             className="absolute inset-8 rounded-full bg-gradient-to-r from-purple-200/50 to-emerald-200/40 blur-[120px]"
                         />
                         <div className="relative rounded-[40px] border border-black/5 bg-white p-8 shadow-[0_20px_80px_rgba(0,0,0,0.06)]">
