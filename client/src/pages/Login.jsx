@@ -59,7 +59,7 @@ function Login({ setUser }) {
 
     return (
         <div className="min-h-screen  bg-linear-to-br  from-purple-50 via-white to-emerald-50 overflow-hidden ">
-            <div className="max-w-6xl  mx-auto px-6 py-8 lg:py-12 ">
+            <div className="max-w-6xl  mx-auto px-6 py-8 lg:py-6 ">
                 <div className="grid lg:grid-cols-2  gap-16 items-center">
 
                     <div className="">

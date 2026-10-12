@@ -57,9 +57,9 @@ function NavBar({ user, setUser }) {
                         <NavLink
                             to="/builder"
                             className={({ isActive }) =>
-                                `rounded-xl px-4 py-2 text-sm font-semibold cursor-pointer transition ${isActive
-                                    ? "bg-purple-100 text-purple-700"
-                                    : "text-[#475569] hover:bg-purple-50 hover:text-purple-700"
+                                `rounded-xl px-4 py-2 text-sm  font-semibold cursor-pointer transition  ${isActive
+                                    ? "bg-gradient-to-r   from-purple-500 to-emerald-500"
+                                    : "text-[#475569] bg-gradient-to-r    from-purple-200 to-emerald-300 hover:bg-purple-50 hover:text-purple-700"
                                 }`
                             }
                         >

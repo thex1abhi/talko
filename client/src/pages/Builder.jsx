@@ -2,7 +2,11 @@
 import React from "react";
 
 function Builder({ user, setUser }) {
-    return <div>Builder</div>;
+    return (
+        <> 
+        
+        </>
+    )
 }
 
 export default Builder;
