@@ -58,7 +58,7 @@ function NavBar({ user, setUser }) {
                             to="/builder"
                             className={({ isActive }) =>
                                 `rounded-xl px-4 py-2 text-sm  font-semibold cursor-pointer transition  ${isActive
-                                    ? "bg-gradient-to-r   from-purple-500 to-emerald-500"
+                                    ? "bg-gradient-to-r   from-purple-500 to-emerald-500 text-white "
                                     : "text-[#475569] bg-gradient-to-r    from-purple-200 to-emerald-300 hover:bg-purple-50 hover:text-purple-700"
                                 }`
                             }

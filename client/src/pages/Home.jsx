@@ -70,6 +70,7 @@ function Home({ user }) {
                                 className="w-full sm:w-auto  px-8 py-4 rounded-2xl  bg-gradient-to-r   from-purple-500 to-emerald-500  text-white  font-semibold  text-sm sm:text-base  shadow-[0_12px_40px_rgba(168,85,247,0.25)] hover:scale-[1.02]  transition-all cursor-pointer   ">
                                 Build your Assistant
                             </button>
+                            
                         </div>
 
                         <p className="mt-5 text-xs sm:text-sm text-gray-400 ">
