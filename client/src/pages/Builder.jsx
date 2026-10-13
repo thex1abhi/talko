@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { FiPlus } from "react-icons/fi"
+import { FiPlus, FiTrash } from "react-icons/fi"
 
 const THEMES = [
     "light",
@@ -31,6 +31,24 @@ function Builder({ user, setUser }) {
     const [pagePath, setPagePath] = useState("");
     const [pageKeywords, setPageKeywords] = useState("");
 
+
+    const addPage = () => {
+        if (!pageName || pagePath) return;
+        const newPage = {
+            name: pageName,
+            path: pagePath,
+            keyword: pageKeywords.split(",").map((k) => k.trim())
+        }
+
+        setPages([...pages, newPage])
+        setPageName("")
+        setPagePath("")
+        setPageKeywords("")
+    }
+
+    const removePage = (index) => {
+        const updatePages = pages.filter((_, i) => i !== index)
+    } 
 
     return (
         <>
@@ -155,7 +173,9 @@ function Builder({ user, setUser }) {
                                         Assistant can redirect users
                                     </p>
                                 </div>
-                                <button className=" flex items-center gap-2 px-4 py-2 rounded-xl  bg-linear-to-r from-purple-500 to-emerald-500 text-white text-sm   ">
+                                <button
+                                    onClick={addPage}
+                                    className=" flex items-center gap-2 px-4 py-2 rounded-xl  bg-linear-to-r from-purple-500 to-emerald-500 text-white text-sm   ">
                                     <FiPlus /> Add
 
                                 </button>
@@ -173,9 +193,28 @@ function Builder({ user, setUser }) {
 
                                 <input type="text" className="border border-gray-200  rounded-2xl px-4 py-3  " placeholder="Pricing , Plan"
                                     onChange={(e) => setPageKeywords(e.target.value)}
-                                    value={[pageName]}
+                                    value={[pageKeywords]}
                                 />
 
+                            </div>
+                            <div className="">
+                                {pages.map((page, index) => (
+                                    <div
+                                        key={index}
+                                        className="flex items-center justify-between border  border-gray-100 rounded-2xl p-4    ">
+                                        <div className="">
+                                            <p className="font-medium "> {page.Name} </p>
+                                            <p className="text-sm text-gray-400 "> {page.Path} </p>
+                                            <p className=" text-sm text-gray-400  " > {page.keywords} </p>
+                                        </div>
+                                        <button
+                                            className="text-red-500  ">
+                                            <FiTrash className="" size={12} />
+
+                                        </button>
+                                    </div>
+
+                                ))}
                             </div>
                         </div>
                     </div>
