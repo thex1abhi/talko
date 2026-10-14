@@ -117,7 +117,7 @@ function Home({ user }) {
                 </div>
             </section>
 
-            <footer className="mt-auto border-t border-slate-200 text-white bg-[#081028] px-4 py-7 sm:px-6 lg:px-8">
+            <footer className="mt-auto border-t border-slate-200 text-white bg-[#081028] px-4 py-4 sm:px-6 lg:px-8">
                 <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
                     <div className="flex flex-col items-center gap-1 sm:items-start">
                         <div className="flex items-center gap-2">

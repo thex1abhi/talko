@@ -1,6 +1,9 @@
 
 import React, { useState } from "react";
-import { FiPlus, FiTrash } from "react-icons/fi"
+import { FiCopy, FiPlus, FiTrash } from "react-icons/fi"
+import axios from "axios"
+import { CLIENT_URL, ServerUrl } from "../App";
+import toast, { Toaster } from 'react-hot-toast';
 
 const THEMES = [
     "light",
@@ -18,9 +21,10 @@ const TONES = [
 
 function Builder({ user, setUser }) {
 
+    const [editAssistant, setEditAssistant] = useState(!user?.isSetupComplete);
     const [assistantName, setAssistantName] = useState(user?.assistantName || "");
     const [businessName, setBusinessName] = useState(user?.businessName || "");
-    const [businesstype, setBusinessType] = useState(user?.businesstype || "");
+    const [businessType, setBusinessType] = useState(user?.businessType || "");
     const [businessDescription, setBusinessDescription] =
         useState(user?.businessDescription || "");
     const [theme, setTheme] = useState(user?.Theme || "dark");
@@ -30,25 +34,76 @@ function Builder({ user, setUser }) {
     const [pageName, setPageName] = useState("");
     const [pagePath, setPagePath] = useState("");
     const [pageKeywords, setPageKeywords] = useState("");
+    const [loading, setLoading] = useState(false);
+
 
 
     const addPage = () => {
-        if (!pageName || pagePath) return;
-        const newPage = {
-            name: pageName,
-            path: pagePath,
-            keyword: pageKeywords.split(",").map((k) => k.trim())
-        }
+        try {
+            if (!pageName || !pagePath) return;
+            const newPage = {
+                name: pageName,
+                path: pagePath,
+                keywords: pageKeywords.split(",").map((k) => k.trim())
+            }
 
-        setPages([...pages, newPage])
-        setPageName("")
-        setPagePath("")
-        setPageKeywords("")
+            setPages([...pages, newPage])
+            setPageName("")
+            setPagePath("")
+            setPageKeywords("")
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const removePage = (index) => {
         const updatePages = pages.filter((_, i) => i !== index)
-    } 
+        setPages(updatePages)
+    }
+
+    const saveAssistant = async () => {
+        setLoading(true)
+        try {
+            const data = {
+                assistantName, businessName, businessType, businessDescription, tone,
+                theme, geminiApiKey, pages,
+            }
+
+            const res = await axios.post(ServerUrl + "/api/user/save-assistant", data,
+                { withCredentials: true }
+            )
+            console.log(res.data);
+            setUser(res.data.user)
+            setEditAssistant(false)
+            toast.success("Assistant saved successfully")
+            setLoading(false)
+
+        } catch (error) {
+            console.log(error);
+            toast.error("Failed to save assistant ")
+            setLoading(false)
+
+        }
+    }
+
+    const remainingMessages = Math.max(
+        0,
+        (user?.requestLimit || 0) -
+        (user?.totalMessages || 0)
+    )
+
+    const RemainingDays = user?.proExpiresAt ? Math.max(
+        0,
+        Math.ceil(
+            (
+                new Date(user.proExpiresAt) - new Date()
+            ) / (1000 * 60 * 60 * 24)
+        )
+    )
+        : 0;
+
+    const embedCode = `<script src="${CLIENT_URL}/assistant.js" data-user-id="${user?._id}" ></script> `;
+
 
     return (
         <>
@@ -64,7 +119,91 @@ function Builder({ user, setUser }) {
                         </p>
                     </div>
 
-                    <div className="space-y-6  ">
+                    {user?.isSetupComplete && !editAssistant && (
+                        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 mb-6 ">
+
+                            <p className="text-sm text-gray-400  "> Assistant </p>
+                            <h2 className="text-3xl  font-bold text-[#081028] mt-1  "> {user.assistantName} </h2>
+
+                            <p className="text-gray-500 mt-3 leading-7 ">
+                                Your assistant is ready to use on your website </p>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6  ">
+
+                                <div className="rounded-2xl border border-gray-100  bg-[#f8fafc] p-4  ">
+                                    <p className="text-sm text-gray-400  "> Current Plan </p>
+                                    <h2 className="text-xl font-bold  text-black/90 mt-1 capitalize "> {user?.plan}</h2>
+                                </div>
+
+                                <div className="rounded-2xl border border-gray-100  bg-[#f8fafc] p-4  ">
+                                    <p className="text-sm text-gray-400  "> Gemini Status  </p>
+                                    <h2 className={`text-xl font-bold  text-black/10 mt-1 capitalize ${user?.geminiStatus === "active" ? "text-emerald-600" : user?.geminiStatus === "invalid" ?
+                                        "text-red-400" : " text-amber-500 "
+                                        } `}>
+                                        {user?.geminiStatus}</h2>
+                                </div>
+
+                                <div className="rounded-2xl border border-gray-100  bg-[#f8fafc] p-4  ">
+                                    <p className="text-sm text-gray-400  ">
+                                        {user?.plan === "free" ? "Message Left " : "Plan Expiry "
+                                        } </p>
+                                    <h2 className="text-xl font-bold  text-black/90 mt-1 capitalize ">
+                                        {user?.plan === "free" ? `${remainingMessages}` :
+                                            `${RemainingDays}`
+                                        }
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <div className="mt-7 ">
+                                <div className="mt-4 rounded-2xl bg-amber-50 border border-amber-200 p-4   ">
+                                    <p className="text-sm font-semibold text-amber-900 ">
+                                        Where to paste this script ?
+                                    </p>
+                                    <p className="text-sm text-amber-700  mt-2 leading-6  ">
+                                        Paste this script before the closing
+                                        {" "}
+                                        <span className="font-semibold ">
+                                            {"</body>"}
+                                        </span>
+                                        {" "}
+                                        tag of your website HTML file.
+                                        <br />
+                                        <br />
+                                        Example:
+                                    </p>
+                                    <pre className="mt-3 bg-black/90 text-emerald-400 rounded-xl   p-3 text-xs  font-mono  overflow-x-auto " >
+                                        {`<body> 
+      Your Website Content                           
+      <script src="${CLIENT_URL}/assistant.js"  data-user-id="${user?._id}" </script> 
+</body>   `}
+                                    </pre>
+                                </div>
+                                <p className="text-sm font-medium text-black/90 mb-3 mt-3  ">
+                                    Embed Code </p>
+                            </div>
+                            <div className="relative ">
+                                <textarea
+                                    readOnly
+                                    value={embedCode} className="w-full h-20 bg-black/90  text-emerald-400 rounded-2xl p-4 text-sm  font-mono resize-none  outline-none  " />
+                                <button
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(embedCode);
+                                        toast.success("Copied")
+                                    }}
+                                    className="absolute top-4 right-4 w-10 h-10 rounded-xl 
+                                bg-white flex items-center justify-center cursor-pointer ">
+                                    <FiCopy />
+                                </button>
+                            </div>
+
+                            <button
+                                onClick={() => setEditAssistant(true)}
+                                className="mt-6 h-12 px-6 rounded-2xl  bg-gradient-to-r from-purple-500 to-emerald-500  text-white font-medium cursor-pointer">Edit assistant </button>
+                        </div>
+                    )}
+
+                    {editAssistant && <div className="space-y-6  ">
 
                         <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6   ">
                             <h2 className="text-lg font-semibold mb-5 ">
@@ -84,7 +223,7 @@ function Builder({ user, setUser }) {
                                     placeholder="Business Name  "
                                     className="w-full border border-gray-200 rounded-2xl  px-4 py-3 " />
                                 <input type="text"
-                                    value={businesstype}
+                                    value={businessType}
                                     onChange={(e) => setBusinessType(e.target.value)}
                                     placeholder="Business Type  "
                                     className="w-full border border-gray-200 rounded-2xl  px-4 py-3 " />
@@ -175,7 +314,7 @@ function Builder({ user, setUser }) {
                                 </div>
                                 <button
                                     onClick={addPage}
-                                    className=" flex items-center gap-2 px-4 py-2 rounded-xl  bg-linear-to-r from-purple-500 to-emerald-500 text-white text-sm   ">
+                                    className=" flex items-center gap-2 px-4 py-2 rounded-xl  bg-linear-to-r from-purple-500 to-emerald-500 text-white text-sm cursor-pointer   ">
                                     <FiPlus /> Add
 
                                 </button>
@@ -203,21 +342,31 @@ function Builder({ user, setUser }) {
                                         key={index}
                                         className="flex items-center justify-between border  border-gray-100 rounded-2xl p-4    ">
                                         <div className="">
-                                            <p className="font-medium "> {page.Name} </p>
-                                            <p className="text-sm text-gray-400 "> {page.Path} </p>
-                                            <p className=" text-sm text-gray-400  " > {page.keywords} </p>
+                                            <p className="font-medium "> {page.name} </p>
+                                            <p className="text-sm text-gray-400 "> {page.path} </p>
+
                                         </div>
                                         <button
-                                            className="text-red-500  ">
+                                            onClick={() => removePage(index)}
+                                            className="text-red-500  cursor-pointer ">
                                             <FiTrash className="" size={12} />
-
                                         </button>
                                     </div>
 
                                 ))}
                             </div>
                         </div>
-                    </div>
+                        <button
+                            onClick={saveAssistant}
+                            disabled={loading}
+                            className="w-full h-14 rounded-2xl bg-linear-to-r from-purple-500 to-emerald-500 text-white font-semibold cursor-pointer   ">
+                            {loading ? "Saving..." : user?.isSetupComplete ? "Update Assistant " : "Save Assistant "
+
+                            }
+
+                        </button>
+                    </div>}
+
                 </div>
             </div>
         </>

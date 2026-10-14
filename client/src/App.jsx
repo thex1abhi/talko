@@ -7,9 +7,10 @@ import ProtectedRoutes from './Components/ProtectedRoutes'
 import NavBar from './Components/NavBar'
 import Builder from './pages/Builder'
 import Billing from './pages/Billing'
-import  { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 export const ServerUrl = "http://localhost:8000"
+ export const CLIENT_URL = "http://localhost:5173"
 
 
 function App() {
