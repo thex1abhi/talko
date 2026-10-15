@@ -174,8 +174,8 @@ function Builder({ user, setUser }) {
                                     </p>
                                     <pre className="mt-3 bg-black/90 text-emerald-400 rounded-xl   p-3 text-xs  font-mono  overflow-x-auto " >
                                         {`<body> 
-      Your Website Content                           
-      <script src="${CLIENT_URL}/assistant.js"  data-user-id="${user?._id}" </script> 
+     Your Website Content                           
+      <script src="${CLIENT_URL}/assistant.js" data-user-id="${user?._id}"></script> 
 </body>   `}
                                     </pre>
                                 </div>
