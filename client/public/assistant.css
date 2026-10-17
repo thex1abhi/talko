@@ -1,9 +1,35 @@
+/* toogle btn  */
+
+.talko-btn {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    width: 65px;
+    height: 65px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: .3s;
+
+}
+
+.talko-btn img {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+}
+
 /* popup */
 
 .talko-popup {
     position: fixed;
     right: 18px;
-    bottom: 75px;
+    bottom: 90px;
 
     width: 340px;
     min-width: 340px;
@@ -16,7 +42,7 @@
     border-radius: 38px;
     overflow: hidden;
     z-index: 999999;
-    display: flex;
+    display: none;
 
     box-shadow: 0 20px 80px rgba(0, 0, 0, .32);
 
@@ -217,3 +243,268 @@
 
 }
 
+.talko-mic {
+    transform: scale(1.06);
+}
+
+@keyframes micFloat {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+
+.talko-mic-icon {
+
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+
+}
+
+/* dark theme  */
+.theme-dark {
+    background: #050816;
+    border: 1px solid rgba(255, 255, 255, .08);
+}
+
+
+.theme-dark .talko-overlay {
+    background:
+        radial-gradient(circle at top,
+            rgba(168, 85, 247, .18),
+            transparent 45%);
+}
+
+.theme-dark .talko-orb,
+.theme-dark .talko-orb-glow {
+    background:
+        linear-gradient(135deg,
+            #4cc9ff,
+            #7c3aed,
+            #ec4899);
+}
+
+.theme-dark .talko-title {
+    color: white;
+}
+
+.theme-dark .talko-sub {
+    color: rgba(255, 255, 255, .68);
+}
+
+.theme-dark .talko-status {
+    color: #22e3a6;
+}
+
+.theme-dark .talko-wave span {
+    color: #22e3a6;
+}
+
+
+.theme-dark .talko-user-text {
+    color: white;
+}
+
+.theme-dark .talko-ai-text {
+    color: rgba(255, 255, 255, .72);
+}
+
+.theme-dark .talko-mic,
+.theme-dark.active {
+    background:
+        linear-gradient(135deg,
+            #7c3aed,
+            #4f8cff);
+
+    box-shadow:
+        0 0 35px rgba(124, 58, 237, .55),
+        0 0 90px rgba(79, 140, 255, .38),
+        0 0 140px rgba(124, 58, 237, .22);
+
+}
+
+/* light theme */
+.theme-light {
+    background: linear-gradient(135deg,
+            #ffffff,
+            #eef6ff);
+    border: 1px solid #dbeafe;
+}
+
+.theme-light .talko-overlay {
+    background:
+        radial-gradient(circle at top,
+            rgba(59, 130, 246, .12),
+            transparent 45%);
+}
+
+.theme-light .talko-orb,
+.theme-light .talko-orb-glow {
+    background:
+        linear-gradient(135deg,
+            #7dd3fc,
+            #67e8f9,
+            #f5d0fe);
+}
+
+.theme-light .talko-title {
+    color: #081028;
+}
+
+.theme-light .talko-sub {
+    color: #475569;
+}
+
+.theme-light .talko-status {
+    color: #3b82f6;
+}
+
+.theme-light .talko-wave span {
+    color: #60a5fa;
+}
+
+.theme-light .talko-user-text {
+    color: #081028;
+}
+
+.theme-light .talko-ai-text {
+    color: #475569;
+}
+
+.theme-light .talko-mic,
+.theme-light.active {
+    background:
+        linear-gradient(135deg,
+            #60a5fa,
+            #06b6d4);
+
+    box-shadow:
+        0 0 30px rgba(59, 130, 246, .38),
+        0 0 85px rgba(6, 182, 212, .28),
+        0 0 130px rgba(59, 130, 246, .16)
+}
+
+
+/* glass theme */
+.theme-glass {
+    background: rgba(0, 0, 0, .28);
+    backdrop-filter: blur(45px);
+    -webkit-backdrop-filter: blur(45px);
+    border: 1px solid rgba(255, 255, 255, .08);
+}
+
+.theme-glass .talko-overlay {
+    background:
+        radial-gradient(circle at top,
+            rgba(255, 255, 255, .05),
+        );
+}
+
+.theme-glass .talko-orb,
+.theme-glass .talko-orb-glow {
+    background:
+        linear-gradient(135deg,
+            #bae6fd,
+            #c4b5fd,
+            #f5d0fe);
+}
+
+.theme-glass .talko-title {
+    color: white;
+}
+
+.theme-glass .talko-sub {
+    color: rgba(255, 255, 255, .7);
+}
+
+.theme-glass .talko-status {
+    color: #a5f3fc;
+}
+
+.theme-glass .talko-wave span {
+    color: #a5f3fc;
+}
+
+.theme-glass .talko-user-text {
+    color: white;
+}
+
+.theme-glass .talko-ai-text {
+    color: rgba(255, 255, 255, .7);
+}
+
+.theme-glass .talko-mic,
+.theme-glass.active {
+    background:
+        linear-gradient(135deg,
+            #22d3ee,
+            #a78bfa);
+
+    box-shadow: 0 0 70px rgba(34, 211, 238, .35);
+}
+
+
+/* neon theme */
+.theme-neon {
+    background: #03120d;
+    border: 1px solid rgba(52, 211, 153, .2);
+}
+
+.theme-neon .talko-overlay {
+    background:
+        radial-gradient(circle at top,
+            rgba(16, 185, 129, .18),
+            transparent 45%);
+}
+
+.theme-neon .talko-orb,
+.theme-neon .talko-orb-glow {
+    background:
+        linear-gradient(135deg,
+            #6ee7b7,
+            #4ade80,
+            #22d3ee);
+}
+
+.theme-neon .talko-title {
+    color: #ecfdf5;
+}
+
+.theme-neon .talko-sub {
+    color: rgba(209, 250, 229, .7);
+}
+
+.theme-neon .talko-status {
+    color: #6ee7b7;
+}
+
+.theme-neon .talko-wave span {
+    color: #6ee7b7;
+}
+
+.theme-neon .talko-user-text {
+    color: #ecfdf5;
+}
+
+.theme-neon .talko-ai-text {
+    color: rgba(209, 250, 229, .7);
+}
+
+.theme-neon .talko-mic,
+.theme-neon.active {
+    background:
+        linear-gradient(135deg,
+            #34d399,
+            #22c55e);
+
+    box-shadow: 0 0 70px rgba(16, 185, 129, .45);
+}

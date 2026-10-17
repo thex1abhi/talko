@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"
 import AssistantPreview from "../Components/AssistantPreview";
-import logo from "../assets/talko.png"
+import logo from "../../public/logo.png"
 
 const steps = [
     {

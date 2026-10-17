@@ -1,31 +1,30 @@
 
 (function () {
 
-    //userData 
+  //userData 
 
-    const script = document.currentScript;
+  const script = document.currentScript;
 
-    const userId = script?.dataset?.userId
+  const userId = script?.dataset?.userId
 
-    const theme = "dark"
+  const theme = "glass"
 
-    const assistantConfig = null
+  const assistantConfig = null
 
-    // css 
+  // css 
 
+  const link = document.createElement("link")
+  link.rel = "stylesheet"
+  link.href = "http://localhost:5173/assistant.css"
 
-    const link = document.createElement("link")
-    link.rel = "stylesheet"
-    link.href = "http://localhost:5173/assistant.css"
+  document.head.appendChild(link)
 
-    document.head.appendChild(link)
+  // assistant popup  
 
-    // assistant popup  
+  const popup = document.createElement("div")
 
-    const popup = document.createElement("div")
-
-    popup.className = `talko-popup theme-${theme}`
-    popup.innerHTML = `
+  popup.className = `talko-popup theme-${theme}`
+  popup.innerHTML = `
     <div class="talko-overlay"></div>
 
     <div class="talko-content">
@@ -64,6 +63,28 @@
       </div>
     </div>
     `;
-    document.body.appendChild(popup); 
+  document.body.appendChild(popup);
+
+  //  floating button 
+
+  const button = document.createElement("button")
+
+  button.className = `talko-btn theme-${theme} `
+
+  button.innerHTML = `
+  <img src="http://localhost:5173/logo.png" alt="logo" />
+  `
+  document.body.appendChild(button);
+
+  //toggle popup 
+
+  let open = false;
+
+  button.onclick = () => {
+    open = !open;
+    popup.style.display = open ? "flex" : "none";
+
+  }
+
 
 })();

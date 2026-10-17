@@ -2,7 +2,7 @@ import React from "react";
 import { HiOutlineMicrophone, HiOutlineSparkles } from "react-icons/hi";
 import { HiOutlineBolt, HiOutlineCodeBracket } from "react-icons/hi2";
 import { FcGoogle } from "react-icons/fc";
-import logo from "../assets/talko.png"
+import logo from "../../public/logo.png"
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../utils/firebase";
 import axios from "axios"

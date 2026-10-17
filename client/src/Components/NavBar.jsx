@@ -6,7 +6,7 @@ import {
     HiOutlineXMark,
 } from "react-icons/hi2";
 import axios from "axios";
-import logo from "../assets/talko.png";
+import logo from "../../public/logo.png";
 import { ServerUrl } from "../App";
 import toast from "react-hot-toast";
 import { useState } from "react";
