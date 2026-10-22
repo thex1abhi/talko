@@ -19,8 +19,8 @@
 }
 
 .talko-btn img {
-    width: 65px;
-    height: 65px;
+    width: 50px;
+    height: 50px;
     object-fit: contain;
 }
 
@@ -423,7 +423,7 @@
 }
 
 .theme-glass .talko-sub {
-    color: rgba(255, 255, 255, .7);
+    color: rgba(255, 255, 255, .75);
 }
 
 .theme-glass .talko-status {
@@ -439,24 +439,27 @@
 }
 
 .theme-glass .talko-ai-text {
-    color: rgba(255, 255, 255, .7);
+    color: rgba(255, 255, 255, .72);
 }
 
 .theme-glass .talko-mic,
 .theme-glass.active {
     background:
         linear-gradient(135deg,
-            #22d3ee,
-            #a78bfa);
+            #38bdf8,
+            #8b5cf6);
 
-    box-shadow: 0 0 70px rgba(34, 211, 238, .35);
+    box-shadow:
+        0 0 35px rgba(34, 211, 238, .34),
+        0 0 95px rgba(139, 92, 246, .28),
+        0 0 150px rgba(56, 189, 248, .18);
 }
 
 
 /* neon theme */
 .theme-neon {
     background: #03120d;
-    border: 1px solid rgba(52, 211, 153, .2);
+    border: 1px solid rgba(16, 185, 129, .18)
 }
 
 .theme-neon .talko-overlay {
@@ -470,9 +473,9 @@
 .theme-neon .talko-orb-glow {
     background:
         linear-gradient(135deg,
-            #6ee7b7,
-            #4ade80,
-            #22d3ee);
+            #34d399,
+            #10b981,
+            #14b8a6);
 }
 
 .theme-neon .talko-title {
@@ -480,7 +483,7 @@
 }
 
 .theme-neon .talko-sub {
-    color: rgba(209, 250, 229, .7);
+    color: rgba(209, 250, 229, .72);
 }
 
 .theme-neon .talko-status {
@@ -496,15 +499,46 @@
 }
 
 .theme-neon .talko-ai-text {
-    color: rgba(209, 250, 229, .7);
+    color: rgba(209, 250, 229, .75);
 }
 
 .theme-neon .talko-mic,
 .theme-neon.active {
     background:
         linear-gradient(135deg,
-            #34d399,
+            #10b981,
             #22c55e);
 
-    box-shadow: 0 0 70px rgba(16, 185, 129, .45);
+    box-shadow:
+        0 0 38px rgba(16, 185, 129, .45),
+        0 0 100px rgba(34, 197, 94, .32),
+        0 0 160px rgba(16, 185, 129, .20);
+}
+
+@media(max-width:640px) {
+    .talko-popup {
+        width: 300px;
+        min-width: 300px;
+        max-width: 300px;
+
+        height: 460px;
+        min-height: 460px;
+        max-height: 460px;
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 82px;
+        border-radius: 30px;
+    } 
+
+    .talko-btn{
+        width: 64px;
+        height: 64px;
+        right: 14px;
+        bottom: 14px;
+
+    }
+ .talko-btn img{
+    
+ }
+
 }

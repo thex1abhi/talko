@@ -7,7 +7,7 @@
 
   const userId = script?.dataset?.userId
 
-  const theme = "glass"
+  const theme = "neon"
 
   const assistantConfig = null
 
