@@ -7,9 +7,9 @@
 
   const userId = script?.dataset?.userId
 
-  const theme = "neon"
+  const theme = "dark"
 
-  const assistantConfig = null
+  let assistantConfig = null
 
   // css 
 
@@ -76,6 +76,7 @@
   `
   document.body.appendChild(button);
 
+
   //toggle popup 
 
   let open = false;
@@ -86,5 +87,45 @@
 
   }
 
+  //load assistant 
+
+  const loadAssistant = async () => {
+    try {
+      const res = await fetch(`http://localhost:8000/api/assistant/config/${userId}`)
+      const data = await res.json()
+      console.log(data);
+
+      if (data) {
+        assistantConfig = data.user
+        applyConfig()
+      }
+
+    } catch (error) {
+      console.log(`Assistant load  error : ${error} `);
+    }
+  }
+
+  const applyConfig = async () => {
+    try {
+      if (!assistantConfig) return;
+
+      popup.className = `talko-popup theme-${assistantConfig.theme}`
+      button.className = `talko-btn theme-${assistantConfig.theme} `
+
+      const title = popup.querySelector(".talko-title")
+
+      title.innerHTML = `Hello I'm ${assistantConfig.assistantName} `
+
+      const subtitle = popup.querySelector(".talko-sub")
+      subtitle.innerHTML = `Welcome to  ${assistantConfig.businessName }. </br>
+      Ask anything about your website 
+      `
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  loadAssistant()
 
 })();

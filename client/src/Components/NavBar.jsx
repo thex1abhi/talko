@@ -6,7 +6,7 @@ import {
     HiOutlineXMark,
 } from "react-icons/hi2";
 import axios from "axios";
-import logo from "../../public/logo.png";
+import logo from "/logo.png";
 import { ServerUrl } from "../App";
 import toast from "react-hot-toast";
 import { useState } from "react";
@@ -48,8 +48,8 @@ function NavBar({ user, setUser }) {
                     onClick={() => setMenuOpen((open) => !open)}
                 >
                     {menuOpen
-                        ? <HiOutlineXMark className="h-6 w-6 cursor-pointer "  />
-                        : <HiOutlineBars3 className="h-6 w-6 cursor-pointer "  />}
+                        ? <HiOutlineXMark className="h-6 w-6 cursor-pointer " />
+                        : <HiOutlineBars3 className="h-6 w-6 cursor-pointer " />}
                 </button>
 
                 <div className="ml-auto hidden items-center gap-2 sm:flex sm:gap-4">
@@ -59,7 +59,7 @@ function NavBar({ user, setUser }) {
                             className={({ isActive }) =>
                                 `rounded-xl px-4 py-2 text-sm  font-semibold cursor-pointer transition  ${isActive
                                     ? "bg-gradient-to-r   from-purple-500 to-emerald-500 text-white "
-                                    : "text-[#475569] bg-gradient-to-r    from-purple-200 to-emerald-300 hover:bg-purple-50 hover:text-purple-700"
+                                    : "text-[#475569] hover:bg-purple-50 hover:text-purple-700"
                                 }`
                             }
                         >
@@ -69,7 +69,7 @@ function NavBar({ user, setUser }) {
                             to="/billing"
                             className={({ isActive }) =>
                                 `rounded-xl px-4 py-2 text-sm font-semibold cursor-pointer transition ${isActive
-                                    ? "bg-purple-100 text-purple-700"
+                                    ? "bg-gradient-to-r   from-purple-500 to-emerald-500 text-white"
                                     : "text-[#475569] hover:bg-purple-50 hover:text-purple-700"
                                 }`
                             }
@@ -79,7 +79,7 @@ function NavBar({ user, setUser }) {
                     </nav>
 
                     <div className="flex min-w-0 items-center gap-3">
-                        <HiOutlineUserCircle className="h-10 w-10 shrink-0 text-purple-500"  />
+                        <HiOutlineUserCircle className="h-10 w-10 shrink-0 text-purple-500" />
                         <div className="hidden min-w-0 sm:block">
                             <p className="max-w-40 truncate text-sm font-semibold text-[#081028]">
                                 {user?.name || "User"}
@@ -92,7 +92,7 @@ function NavBar({ user, setUser }) {
                             onClick={handleLogout}
                             className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-purple-100 px-3 py-2 text-sm font-semibold text-[#475569] transition hover:border-purple-200 hover:bg-purple-50 cursor-pointer hover:text-red-700"
                         >
-                            <HiOutlineArrowRightOnRectangle className="h-5 w-5 cursor-pointer "  />
+                            <HiOutlineArrowRightOnRectangle className="h-5 w-5 cursor-pointer " />
                         </button>
                     </div>
                 </div>
@@ -107,7 +107,7 @@ function NavBar({ user, setUser }) {
                             onClick={() => setMenuOpen(false)}
                             className={({ isActive }) =>
                                 `rounded-xl px-4 py-3 text-sm font-semibold  cursor-pointer transition ${isActive
-                                    ? "bg-purple-100 text-purple-700"
+                                    ? "bg-gradient-to-r   from-purple-500 to-emerald-500 text-white"
                                     : "text-[#475569] hover:bg-purple-50 hover:text-purple-700"
                                 }`
                             }
@@ -119,7 +119,7 @@ function NavBar({ user, setUser }) {
                             onClick={() => setMenuOpen(false)}
                             className={({ isActive }) =>
                                 `rounded-xl px-4 py-3 text-sm font-semibold cursor-pointer transition ${isActive
-                                    ? "bg-purple-100 text-purple-700"
+                                    ? "bg-gradient-to-r   from-purple-500 to-emerald-500 text-white"
                                     : "text-[#475569] hover:bg-purple-50 hover:text-purple-700"
                                 }`
                             }
@@ -128,7 +128,7 @@ function NavBar({ user, setUser }) {
                         </NavLink>
                     </nav>
                     <div className="mt-3 flex items-center gap-3 border-t border-black/5 pt-4">
-                        <HiOutlineUserCircle className="h-10 w-10 shrink-0 text-purple-500"  />
+                        <HiOutlineUserCircle className="h-10 w-10 shrink-0 text-purple-500" />
                         <div className="min-w-0 flex-1">
                             <p className="truncate text-sm font-semibold text-[#081028]">
                                 {user?.name || "User"}
@@ -143,7 +143,7 @@ function NavBar({ user, setUser }) {
                             onClick={handleLogout}
                             className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-purple-100 px-3 py-2 text-sm font-semibold text-[#475569] transition hover:border-purple-200 hover:bg-purple-50 cursor-pointer hover:text-red-700"
                         >
-                            <HiOutlineArrowRightOnRectangle className="h-5 w-5 cursor-pointer "  />
+                            <HiOutlineArrowRightOnRectangle className="h-5 w-5 cursor-pointer " />
                         </button>
                     </div>
                 </div>

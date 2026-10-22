@@ -16,7 +16,7 @@ export const ServerUrl = "http://localhost:8000"
 function App() {
 
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
 

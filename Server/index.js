@@ -6,6 +6,7 @@ import cors from "cors"
 import authRouter from "./routes/auth.routes.js"
 import cookieParser from "cookie-parser"
 import userRouter from "./routes/user.routes.js"
+import assistantRouter from "./routes/assistant.routes.js"
 dotenv.config()
 
 const app = express()
@@ -13,18 +14,26 @@ const app = express()
 app.use(express.json())
 app.use(cookieParser())
 
-app.use(cors({
-    origin: "http://localhost:5173",
-    credentials: true
-}))
+const privateCors =
+    cors({
+        origin: ["http://localhost:5173"],
+        credentials: true
+    });
+
+const publicCors =
+    cors({
+        origin: "*",
+    })
+
 
 const PORT = process.env.PORT
 
 app.get("/", (req, res) => {
     return res.json(`Hello from server `)
 })
-app.use("/api/auth", authRouter)
-app.use("/api/user", userRouter)
+app.use("/api/auth", privateCors, authRouter)
+app.use("/api/user", privateCors, userRouter)
+app.use("/api/assistant", publicCors, assistantRouter)
 
 app.listen(PORT, () => {
     console.log(`Server started on ${PORT}`);
