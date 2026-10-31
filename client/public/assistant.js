@@ -93,7 +93,7 @@
     try {
       const res = await fetch(`http://localhost:8000/api/assistant/config/${userId}`)
       const data = await res.json()
-      console.log(data);
+      // console.log(data);
 
       if (data) {
         assistantConfig = data.user
@@ -117,7 +117,7 @@
       title.innerHTML = `Hello I'm ${assistantConfig.assistantName} `
 
       const subtitle = popup.querySelector(".talko-sub")
-      subtitle.innerHTML = `Welcome to  ${assistantConfig.businessName }. </br>
+      subtitle.innerHTML = `Welcome to  ${assistantConfig.businessName}. </br>
       Ask anything about your website 
       `
 
@@ -128,4 +128,105 @@
 
   loadAssistant()
 
+  const status = popup.querySelector(".talko-status")
+  const wave = popup.querySelector(".talko-wave")
+  const userText = popup.querySelector(".talko-user-text")
+  const aiText = popup.querySelector(".talko-ai-text")
+  const mic = popup.querySelector(".talko-mic")
+
+  const speak = (text) => {
+
+    window.speechSynthesis.cancel()
+
+    aiText.innerHTML = text;
+    status.innerHTML = "AI Speaking ...";
+
+    const speech = new SpeechSynthesisUtterance(text)
+
+    speech.lang = "hi-IN";
+    speech.rate = 1;
+    speech.pitch = 1;
+    speech.volume = 1;
+
+    speech.onend = () => {
+
+      status.innerText = "Tap button to speak "
+      wave.style.opacity = "0";
+
+    }
+    window.speechSynthesis.speak(
+      speech
+    )
+
+  }
+
+  const speechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+
+  if (speechRecognition) {
+    const recognition = new speechRecognition()
+
+    recognition.lang = "en-us";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+
+    mic.onclick = () => {
+      wave.style.opacity = "1";
+      status.innerHTML = "Listening...";
+      userText.innerHTML = "";
+      aiText.innerHTML = "";
+      recognition.start();
+
+    }
+
+    recognition.onresult = (e) => {
+      const text = e.results[0][0].transcript
+      userText.innerHTML = "You : " + text
+      recognition.stop();
+
+      setTimeout(async () => {
+        try {
+          status.innerHTML = "Thinking...";
+          const res = await fetch("http://localhots:8000/api/assistant/ask", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              message: text,
+              userId
+            })
+          })
+
+          const data = await res.json()
+          console.log(data);
+
+          if (data.success) {
+            if (data.action === "navigate") {
+              speak(data.response)
+
+              setTimeout(() => {
+                window.location.href = data.path
+              }, 1500);
+            } else {
+              speak(data.aiResponse)
+            }
+          } else {
+            speak("Response Error Check your plan ")
+          }
+
+        } catch (error) {
+          console.log(error);
+          speak("Server error ")
+        }
+      }, 600)
+    }
+    recognition.onerror = () => {
+      status.innerHTML = "Tap button to speak ";
+      wave.style.opacity = "0";
+    }
+  } else {
+    status.innerHTML = "Speech recognition not supported"
+  }
+  
 })();
