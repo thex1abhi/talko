@@ -49,7 +49,7 @@ export const askAssistant = async (req, res) => {
 
         const cleanMessage = message.toLowerCase()
 
-        if (user.enableNavigation) {
+        if (user.enableNavgation) {
             const navigationWords = [
                 "open",
                 "go",
@@ -116,7 +116,7 @@ export const askAssistant = async (req, res) => {
 
         `;
 
-        const aiResponse = await generateGeminiResponse(prompt, user.geminiApiKey, user)
+        const aiResponse = await generateGeminiResponse({ prompt, apiKey: user.geminiApiKey, user })
 
         if (user.plan === "free") {
             user.totalMessages += 1

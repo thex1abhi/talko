@@ -181,13 +181,13 @@
 
     recognition.onresult = (e) => {
       const text = e.results[0][0].transcript
-      userText.innerHTML = "You : " + text
+      userText.innerText = "You : " + text
       recognition.stop();
 
       setTimeout(async () => {
         try {
           status.innerHTML = "Thinking...";
-          const res = await fetch("http://localhots:8000/api/assistant/ask", {
+          const res = await fetch("http://localhost:8000/api/assistant/ask", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"

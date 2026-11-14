@@ -306,7 +306,7 @@
 }
 
 .theme-dark .talko-wave span {
-    color: #22e3a6;
+    background-color: #22e3a6;
 }
 
 
@@ -369,7 +369,7 @@
 }
 
 .theme-light .talko-wave span {
-    color: #60a5fa;
+    background-color: #60a5fa;
 }
 
 .theme-light .talko-user-text {
@@ -431,7 +431,7 @@
 }
 
 .theme-glass .talko-wave span {
-    color: #a5f3fc;
+    background-color: #a5f3fc;
 }
 
 .theme-glass .talko-user-text {
@@ -491,7 +491,7 @@
 }
 
 .theme-neon .talko-wave span {
-    color: #6ee7b7;
+    background-color: #6ee7b7;
 }
 
 .theme-neon .talko-user-text {
