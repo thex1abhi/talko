@@ -2,8 +2,11 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import toast from 'react-hot-toast';
+import axios from "axios"
+import { ServerUrl } from "../App";
 
-function Billing({ user }) {
+
+function Billing({ user, setUser }) {
 
   const navigate = useNavigate()
 
@@ -33,6 +36,51 @@ function Billing({ user }) {
     )
   )
     : 0;
+
+
+  const handlePay = async () => {
+    try {
+      const res = await axios.post(ServerUrl + "/api/billing/order", {
+        plan: "pro"
+      }, { withCredentials: true })
+
+
+      const order = res.data.order
+
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: order.amount,
+        currency: order.currency,
+        name: "Talko AI",
+        description: "Pro Plan",
+        order_id: order.id,
+
+        handler: async (response) => {
+          const verifyRes = await axios.post(ServerUrl + "/api/billing/verify", response , { withCredentials: true })
+
+          if (verifyRes.data.success) {
+            toast.success("Payment successfull")
+            setUser(verifyRes.data.user)
+          }
+        },
+
+
+        theme: {
+          color: "#7c3aed",
+        },
+      }
+
+
+      const razorpay = new window.Razorpay(options)
+      razorpay.open()
+
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
+
+
   return (
     <>
       <div className="min-h-screen bg-white  px-4 py-8   ">
@@ -77,7 +125,7 @@ function Billing({ user }) {
             <div className="rounded-2xl border border-gray-200 bg-gray-100 p-6">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-wide text-gray-500">Free plan</p>
-                <h3 className="mt-2 text-2xl font-bold text-[#081028]">Free</h3>
+                <h3 className="mt-2 text-2xl font-bold text-[#081028]"> ₹ 0 </h3>
                 <p className="mt-2 text-sm text-gray-500">A simple way to get started with your AI assistant.</p>
               </div>
               <ul className="mt-6 space-y-3 text-sm text-gray-700">
@@ -90,7 +138,7 @@ function Billing({ user }) {
             <div className="flex flex-col rounded-2xl border bg-gradient-to-r   from-purple-200 to-emerald-100   p-6 shadow-sm">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-wide text-indigo-900">Pro plan</p>
-                <h3 className="mt-2 text-2xl font-bold text-[#081028]">Pro</h3>
+                <h3 className="mt-2 text-2xl font-bold text-[#081028]">₹ 699</h3>
                 <p className="mt-2 text-sm text-gray-500">More  to grow with your AI assistant.</p>
               </div>
               <ul className="mt-6 space-y-3 text-sm text-gray-700">
@@ -99,6 +147,7 @@ function Billing({ user }) {
                 <li>Pro access for the duration of your subscription</li>
               </ul>
               <button
+                onClick={handlePay}
                 disabled={user?.plan === "pro"}
                 className={` mt-3  h-14 w-full rounded-2xl font-semibold transition 
                   ${user?.plan === "pro" ? " bg-emerald-200 text-black cursor-default " :

@@ -59,7 +59,7 @@ function NavBar({ user, setUser }) {
                             className={({ isActive }) =>
                                 `rounded-xl px-4 py-2 text-sm  font-semibold cursor-pointer transition  ${isActive
                                     ? "bg-gradient-to-r   from-purple-500 to-emerald-500 text-white "
-                                    : "text-[#475569] bg-gray-200 hover:bg-purple-50 hover:text-purple-700"
+                                    : "text-[#475569]  hover:bg-purple-50 hover:text-purple-700"
                                 }`
                             }
                         >
@@ -70,7 +70,7 @@ function NavBar({ user, setUser }) {
                             className={({ isActive }) =>
                                 `rounded-xl px-4 py-2 text-sm font-semibold cursor-pointer transition ${isActive
                                     ? "bg-gradient-to-r   from-purple-500 to-emerald-500 text-white"
-                                    : "text-[#475569] bg-purple-200  hover:bg-purple-50 hover:text-purple-700"
+                                    : "text-[#475569]   hover:bg-purple-50 hover:text-purple-700"
                                 }`
                             }
                         >

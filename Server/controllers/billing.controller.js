@@ -25,7 +25,7 @@ export const createOrder = async (req, res) => {
         await Billing.create({
             userId,
             amount,
-            paln,
+            plan,
             orderId: order.id,
         })
 
@@ -49,7 +49,7 @@ export const verifyOrder = async (req, res) => {
     try {
 
         const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
-        const userId = req.body;
+        const userId = req.userId
 
         const sign = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
             .update(razorpay_order_id + "|" + razorpay_payment_id)
