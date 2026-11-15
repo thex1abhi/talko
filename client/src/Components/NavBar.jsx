@@ -59,7 +59,7 @@ function NavBar({ user, setUser }) {
                             className={({ isActive }) =>
                                 `rounded-xl px-4 py-2 text-sm  font-semibold cursor-pointer transition  ${isActive
                                     ? "bg-gradient-to-r   from-purple-500 to-emerald-500 text-white "
-                                    : "text-[#475569] hover:bg-purple-50 hover:text-purple-700"
+                                    : "text-[#475569] bg-gray-200 hover:bg-purple-50 hover:text-purple-700"
                                 }`
                             }
                         >
@@ -70,7 +70,7 @@ function NavBar({ user, setUser }) {
                             className={({ isActive }) =>
                                 `rounded-xl px-4 py-2 text-sm font-semibold cursor-pointer transition ${isActive
                                     ? "bg-gradient-to-r   from-purple-500 to-emerald-500 text-white"
-                                    : "text-[#475569] hover:bg-purple-50 hover:text-purple-700"
+                                    : "text-[#475569] bg-purple-200  hover:bg-purple-50 hover:text-purple-700"
                                 }`
                             }
                         >
@@ -98,17 +98,16 @@ function NavBar({ user, setUser }) {
                 </div>
 
                 <div
-                    id="mobile-navigation"
                     className={`${menuOpen ? "block" : "hidden"} basis-full sm:hidden`}
                 >
-                    <nav className="flex flex-col gap-1 border-t border-black/5 pt-3" aria-label="Main navigation">
+                    <nav className="flex flex-col gap-1 border-t border-black/5 pt-3" >
                         <NavLink
                             to="/builder"
                             onClick={() => setMenuOpen(false)}
                             className={({ isActive }) =>
                                 `rounded-xl px-4 py-3 text-sm font-semibold  cursor-pointer transition ${isActive
                                     ? "bg-gradient-to-r   from-purple-500 to-emerald-500 text-white"
-                                    : "text-[#475569] hover:bg-purple-50 hover:text-purple-700"
+                                    : "text-[#475569]  hover:bg-purple-50 hover:text-purple-700"
                                 }`
                             }
                         >
@@ -120,7 +119,7 @@ function NavBar({ user, setUser }) {
                             className={({ isActive }) =>
                                 `rounded-xl px-4 py-3 text-sm font-semibold cursor-pointer transition ${isActive
                                     ? "bg-gradient-to-r   from-purple-500 to-emerald-500 text-white"
-                                    : "text-[#475569] hover:bg-purple-50 hover:text-purple-700"
+                                    : "text-[#475569]  hover:bg-purple-50 hover:text-purple-700"
                                 }`
                             }
                         >
@@ -138,8 +137,6 @@ function NavBar({ user, setUser }) {
                             )}
                         </div>
                         <button
-                            type="button"
-                            aria-label="Log out"
                             onClick={handleLogout}
                             className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-purple-100 px-3 py-2 text-sm font-semibold text-[#475569] transition hover:border-purple-200 hover:bg-purple-50 cursor-pointer hover:text-red-700"
                         >

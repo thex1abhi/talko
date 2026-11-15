@@ -7,6 +7,7 @@ import authRouter from "./routes/auth.routes.js"
 import cookieParser from "cookie-parser"
 import userRouter from "./routes/user.routes.js"
 import assistantRouter from "./routes/assistant.routes.js"
+import billingRouter from "./routes/billing.route.js"
 dotenv.config()
 
 const app = express()
@@ -33,6 +34,7 @@ app.get("/", (req, res) => {
 })
 app.use("/api/auth", privateCors, authRouter)
 app.use("/api/user", privateCors, userRouter)
+app.use("/api/billing", privateCors, billingRouter)
 app.use("/api/assistant", publicCors, assistantRouter)
 
 app.listen(PORT, () => {
