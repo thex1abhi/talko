@@ -15,7 +15,7 @@
 
   const link = document.createElement("link")
   link.rel = "stylesheet"
-  link.href = "http://localhost:5173/assistant.css"
+  link.href = "https://talkoai.onrender.com/assistant.css"
 
   document.head.appendChild(link)
 
@@ -58,7 +58,7 @@
 
       <div class="talko-bottom">
         <button class="talko-mic">
-          <img src="http://localhost:5173/mic.svg" alt="mic" class="talko-mic-icon" />
+          <img src="https://talkoai.onrender.com/mic.svg" alt="mic" class="talko-mic-icon" />
         </button>
       </div>
     </div>
@@ -72,7 +72,7 @@
   button.className = `talko-btn theme-${theme} `
 
   button.innerHTML = `
-  <img src="http://localhost:5173/logo.png" alt="logo" />
+  <img src="https://talkoai.onrender.com/logo.png" alt="logo" />
   `
   document.body.appendChild(button);
 

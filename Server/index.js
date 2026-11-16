@@ -17,7 +17,7 @@ app.use(cookieParser())
 
 const privateCors =
     cors({
-        origin: ["http://localhost:5173"],
+        origin: ["https://talkoai.onrender.com"],
         credentials: true
     });
 
