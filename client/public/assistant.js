@@ -91,7 +91,7 @@
 
   const loadAssistant = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/api/assistant/config/${userId}`)
+      const res = await fetch(`https://talkoaiserver.onrender.com/api/assistant/config/${userId}`)
       const data = await res.json()
       // console.log(data);
 
@@ -187,7 +187,7 @@
       setTimeout(async () => {
         try {
           status.innerHTML = "Thinking...";
-          const res = await fetch("http://localhost:8000/api/assistant/ask", {
+          const res = await fetch("https://talkoaiserver.onrender.com/api/assistant/ask", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
